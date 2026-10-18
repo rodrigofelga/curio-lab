@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="description" content="CurioLab is a free interactive learning hub. Explore the animal cell, journey through the Solar System, and discover science through hands-on experiences.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CurioLab — Big ideas. Hands-on discoveries.">
+  <meta property="og:description" content="Your next discovery is one click away. Free, visual and interactive learning for curious minds of all ages.">
+  <title>CurioLab — Explore. Discover. Learn.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-diagonal" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4Z"/></symbol>
+    <symbol id="i-mouse" viewBox="0 0 24 24"><path d="M5 3v16l4-4 4 6 3-2-4-6 7-1Z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-3-2-6-2-10-1v14c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1Zm0 0v14"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 5.7c-2-2.2-5.4-2.3-7.5-.1L12 7l-1.3-1.4C8.5 3.4 5 3.5 3 5.7c-2 2.1-1.8 5.4.1 7.4l8.9 8 8.9-8c1.9-2 2.1-5.3-.1-7.4Z"/></symbol>
+    <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.7"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M21 3C9 3 3 7 3 15a6 6 0 0 0 6 6c8 0 12-6 12-18ZM3 21c4-7 9-10 15-13"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6m-5 0v7L4 20c-.6 1 .1 2 1.3 2h13.4c1.2 0 1.9-1 1.3-2l-6-10V3M7 16h10"/></symbol>
+    <symbol id="i-shapes" viewBox="0 0 24 24"><circle cx="7" cy="7" r="4"/><path d="M14 3h7v8h-7zM3 14h9v7H3zM17.5 14l4 7h-8Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+  </svg>
+  <a class="skip-link" href="#experiences">Skip to experiences</a>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="CurioLab — Home">
+        <span class="brand-mark"><svg class="icon"><use href="#i-spark"/></svg></span><span>curio<span class="brand-lab">lab</span><span class="brand-dot">.</span></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#experiences">Explore subjects</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#about">Our mission</a>
+      </nav>
+      <a class="header-cta" href="#experiences">Start exploring <svg class="icon"><use href="#i-arrow"/></svg></a>
+      <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Open navigation" aria-controls="mobile-nav" aria-expanded="false"><svg class="icon menu-icon"><use href="#i-menu"/></svg></button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+      <a href="#experiences">Explore subjects</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#about">Our mission</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="pulse-dot"></span> A PLACE FOR EVERY CURIOUS MIND</span>
+          <h1 id="hero-title">Big ideas.<br>Little discoveries.<br><span class="hero-emphasis">Endless curiosity<span class="hero-period">.</span></span></h1>
+          <p>Step inside the world of science. Explore incredible things, see how they work, and learn by doing — at your own pace.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#experiences">Find your adventure <svg class="icon"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-secondary" href="#how-it-works">See how it works <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-trust"><div class="avatar-stack" aria-hidden="true"><span>✳</span><span>✦</span><span>✴</span></div><p><strong>For every age, every kind of learner.</strong><br>Free to explore. No account needed.</p></div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of Earth, a planetary orbit and a microscopic cell">
+          <div class="orbital-rings ring-one"></div><div class="orbital-rings ring-two"></div><div class="orbital-rings ring-three"></div>
+          <div class="hero-stars" aria-hidden="true">✦ <span>✳</span> <i>✦</i></div>
+          <div class="hero-planet"><div class="hero-planet-land land-one"></div><div class="hero-planet-land land-two"></div><div class="hero-planet-land land-three"></div></div>
+          <div class="small-planet"></div>
+          <div class="floating-cell"><img src="assets/cell-art.svg" alt=""></div>
+          <span class="visual-chip chip-space"><span class="chip-icon">✦</span> Explore the universe</span>
+          <span class="visual-chip chip-cell"><span class="chip-icon">✳</span> Discover tiny worlds</span>
+          <div class="hero-note"><svg class="icon"><use href="#i-spark"/></svg> Learning comes alive here</div>
+        </div>
+      </div>
+      <div class="container hero-bottom"><span><span class="tiny-spark">✳</span> LOOK CLOSER. THINK BIGGER. KEEP WONDERING.</span><a href="#experiences">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
+    </section>
+
+    <section class="experiences section-spacing" id="experiences" aria-labelledby="experiences-title">
+      <div class="container">
+        <div class="section-head"><div><span class="section-kicker"><span class="kicker-line"></span> CHOOSE YOUR ADVENTURE</span><h2 id="experiences-title">What will you <em>discover</em> today?</h2><p>Pick a subject, jump into an interactive experience, and follow your curiosity wherever it takes you.</p></div><div class="live-count"><span class="count-star">✳</span><strong>02</strong><span>LIVE<br>EXPERIENCES</span></div></div>
+        <div class="explore-toolbar">
+          <div class="category-filters" role="group" aria-label="Filter experiences by subject">
+            <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">All subjects <span>6</span></button>
+            <button class="filter-chip" type="button" data-filter="biology" aria-pressed="false">Biology</button>
+            <button class="filter-chip" type="button" data-filter="space" aria-pressed="false">Space</button>
+            <button class="filter-chip" type="button" data-filter="coming-soon" aria-pressed="false">Coming soon</button>
+          </div>
+          <label class="search-wrap"><svg class="icon"><use href="#i-search"/></svg><span class="sr-only">Search subject experiences</span><input id="experience-search" type="search" placeholder="Search discoveries..." autocomplete="off" spellcheck="false"></label>
+        </div>
+        <p id="search-status" class="sr-only" role="status" aria-live="polite"></p>
+        <div class="featured-grid" id="featured-grid">
+          <article class="experience-card featured-card" data-category="biology" data-search="biology animal cell explorer celllab nucleus organelles mitochondria science living cells microscopic">
+            <div class="feature-art art-cell"><div class="art-topline"><span class="tag-light">BIOLOGY <span aria-hidden="true">·</span> LIFE SCIENCE</span><span class="tag-live"><span></span> LIVE</span></div><img src="assets/cell-art.svg" alt="Stylized illustrated animal cell with a nucleus and colorful organelles" loading="eager" width="900" height="680"><span class="art-deco art-deco-cell">✳</span></div>
+            <div class="feature-content"><div class="card-overline"><span class="subject-color subject-green"></span> THE MICROSCOPIC WORLD <span class="card-index">01 / 02</span></div><h3>Animal Cell <span>Explorer</span></h3><p>Take a closer look at life's building blocks. Tap organelles, discover their jobs, and watch cellular activity come alive.</p><div class="card-meta"><span>Interactive exploration</span><span>Self-paced</span></div><div class="feature-bottom"><a class="launch-link" href="https://rodrigofelga.github.io/animal-cell-explorer/" target="_blank" rel="noopener noreferrer" aria-label="Launch Animal Cell Explorer in a new tab">Explore the cell <svg class="icon"><use href="#i-diagonal"/></svg></a><a class="source-link" href="https://github.com/rodrigofelga/animal-cell-explorer" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="experience-card featured-card" data-category="space" data-search="space astronomy solar system galaxy milky way planets earth sun orbital motion stars universe">
+            <div class="feature-art art-space"><div class="art-topline"><span class="tag-light">ASTRONOMY <span aria-hidden="true">·</span> SPACE SCIENCE</span><span class="tag-live"><span></span> LIVE</span></div><img src="assets/space-art.svg" alt="Illustration of the Sun, planets, orbit lines, and stars in space" loading="eager" width="900" height="680"><span class="art-deco art-deco-space">✦</span></div>
+            <div class="feature-content"><div class="card-overline"><span class="subject-color subject-purple"></span> THE COSMIC WORLD <span class="card-index">02 / 02</span></div><h3>Solar System <span>&amp; Milky Way</span></h3><p>Journey from our neighborhood of planets into the wider galaxy. Explore celestial motion, orbits, and our place in space.</p><div class="card-meta"><span>Animated visualization</span><span>Self-paced</span></div><div class="feature-bottom"><a class="launch-link" href="https://rodrigofelga.github.io/solar-system-galaxy/" target="_blank" rel="noopener noreferrer" aria-label="Launch Solar System and Milky Way Explorer in a new tab">Explore the universe <svg class="icon"><use href="#i-diagonal"/></svg></a><a class="source-link" href="https://github.com/rodrigofelga/solar-system-galaxy" target="_blank" rel="noopener noreferrer">View project <span aria-hidden="true">↗</span></a></div></div>
+          </article>
+        </div>
+        <p class="learning-note">A note on scientific accuracy: these interactive models use stylized illustrations and simplified scales or motion to make scientific ideas easier to explore.</p>
+        <div class="coming-section" id="coming-section"><div class="coming-heading"><div><span class="section-kicker"><span class="kicker-line"></span> THERE'S MORE TO COME</span><h3>More worlds to wonder about<span>.</span></h3></div><p>We're making room for new adventures.</p></div><div class="coming-grid">
+          <article class="upcoming-card" data-category="coming-soon" data-search="physics forces energy motion atoms"><div class="upcoming-icon icon-physics"><svg class="icon"><use href="#i-atom"/></svg></div><span class="soon-label">COMING SOON</span><h4>Physics</h4><p>Discover the forces behind our world.</p></article>
+          <article class="upcoming-card" data-category="coming-soon" data-search="earth nature planet ecosystem environment ocean plants"><div class="upcoming-icon icon-earth"><svg class="icon"><use href="#i-leaf"/></svg></div><span class="soon-label">COMING SOON</span><h4>Earth &amp; Nature</h4><p>Explore our living, changing planet.</p></article>
+          <article class="upcoming-card" data-category="coming-soon" data-search="chemistry science reactions molecules experiments"><div class="upcoming-icon icon-chemistry"><svg class="icon"><use href="#i-flask"/></svg></div><span class="soon-label">COMING SOON</span><h4>Chemistry</h4><p>See the science behind everyday things.</p></article>
+          <article class="upcoming-card" data-category="coming-soon" data-search="mathematics math numbers patterns shapes geometry"><div class="upcoming-icon icon-math"><svg class="icon"><use href="#i-shapes"/></svg></div><span class="soon-label">COMING SOON</span><h4>Mathematics</h4><p>Find the patterns hiding everywhere.</p></article>
+        </div></div>
+        <div class="empty-state" id="empty-state" hidden><span>✳</span><h3>No discoveries found — yet!</h3><p>Try another search or choose a different subject.</p><button class="btn btn-primary" type="button" id="clear-filters">Show all subjects <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+      </div>
+    </section>
+
+    <section class="how-section section-spacing" id="how-it-works" aria-labelledby="how-title"><div class="container how-grid"><div class="how-intro"><span class="section-kicker light-kicker"><span class="kicker-line"></span> DIFFERENT WAY TO LEARN</span><h2 id="how-title">Less sitting still.<br><em>More discovering.</em></h2><p>Sometimes the best way to understand something is to see it, touch it, and explore it for yourself.</p><div class="how-decoration" aria-hidden="true"><span class="dec-circle">✦</span><span class="dec-orbit"></span></div></div><div class="steps-list"><div class="step"><span class="step-number">01</span><div class="step-icon"><svg class="icon"><use href="#i-mouse"/></svg></div><div><h3>Pick what interests you</h3><p>Start with a subject that sparks your curiosity. There's no test and no pressure.</p></div></div><div class="step"><span class="step-number">02</span><div class="step-icon"><svg class="icon"><use href="#i-eye"/></svg></div><div><h3>See it come to life</h3><p>Explore animated models, select objects, and learn through interactive visuals.</p></div></div><div class="step"><span class="step-number">03</span><div class="step-icon"><svg class="icon"><use href="#i-book"/></svg></div><div><h3>Learn at your own pace</h3><p>Follow your questions, revisit discoveries, and come back whenever you like.</p></div></div></div></div></section>
+
+    <section class="mission-section section-spacing" id="about" aria-labelledby="mission-title"><div class="container mission-panel"><div class="mission-illustration" aria-hidden="true"><div class="mission-heart">✳</div><div class="mission-ring"></div><div class="mission-spark spark-a">✦</div><div class="mission-spark spark-b">✷</div></div><div class="mission-copy"><span class="section-kicker"><span class="kicker-line"></span> OUR LITTLE BIG MISSION</span><h2 id="mission-title">Curiosity belongs <em>to everyone.</em></h2><p>We all learn differently. CurioLab brings big ideas to life through visual, approachable, hands-on experiences — because exploring something should feel exciting, not intimidating.</p><p class="mission-attribution">An independent educational project created by <strong>Rodrigo Felga de Castro.</strong></p><a class="text-cta" href="#experiences">Find something amazing <svg class="icon"><use href="#i-arrow"/></svg></a></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-top"><div><a class="brand footer-brand" href="#top"><span class="brand-mark"><svg class="icon"><use href="#i-spark"/></svg></span><span>curio<span class="brand-lab">lab</span><span class="brand-dot">.</span></span></a><p>Explore. Discover. Learn. Repeat.<br>Made for curious minds everywhere.</p></div><div class="footer-links"><div><strong>Explore</strong><a href="#experiences">All subjects</a><a href="https://rodrigofelga.github.io/animal-cell-explorer/" target="_blank" rel="noopener noreferrer">Animal Cell Explorer</a><a href="https://rodrigofelga.github.io/solar-system-galaxy/" target="_blank" rel="noopener noreferrer">Solar System Explorer</a></div><div><strong>About</strong><a href="#how-it-works">How it works</a><a href="#about">Our mission</a><a href="https://github.com/rodrigofelga" target="_blank" rel="noopener noreferrer">GitHub projects ↗</a></div></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> CurioLab · Created by Rodrigo Felga de Castro.</span><span>Built with curiosity <svg class="icon"><use href="#i-heart"/></svg> · Free to explore</span></div></footer>
+</body>
+</html>

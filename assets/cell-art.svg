@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680" role="img" aria-labelledby="title desc">
+<title id="title">Colorful illustrated animal cell</title><desc id="desc">Stylized translucent turquoise cell with vibrant nucleus and organelles.</desc>
+<defs>
+ <radialGradient id="bg"><stop stop-color="#eafff8"/><stop offset=".65" stop-color="#a8f0df"/><stop offset="1" stop-color="#59d1c2"/></radialGradient>
+ <radialGradient id="cyto" cx=".41" cy=".37" r=".74"><stop stop-color="#f6fff7"/><stop offset=".44" stop-color="#c6f5d4"/><stop offset=".78" stop-color="#69dbc0"/><stop offset="1" stop-color="#10acaa"/></radialGradient>
+ <radialGradient id="nucleus" cx=".42" cy=".3" r=".8"><stop stop-color="#ffd1e8"/><stop offset=".7" stop-color="#fa73ae"/><stop offset="1" stop-color="#d73685"/></radialGradient>
+ <radialGradient id="nucleolus" cx=".3" cy=".25" r=".9"><stop stop-color="#a893ff"/><stop offset=".6" stop-color="#6c4ad6"/><stop offset="1" stop-color="#432f9d"/></radialGradient>
+ <linearGradient id="mito" x2="1" y2=".4"><stop stop-color="#f64899"/><stop offset=".6" stop-color="#ff97bb"/><stop offset="1" stop-color="#f04d89"/></linearGradient>
+ <linearGradient id="fold" x2="1" y2=".2"><stop stop-color="#ffb743"/><stop offset="1" stop-color="#fa6c53"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+ <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="13" stdDeviation="14" flood-color="#067b7d" flood-opacity=".27"/></filter>
+ <clipPath id="cell"><path d="M452 82c113-3 248 36 303 134 48 86 22 231-46 305-74 80-190 97-298 89-119-9-230-55-280-159-51-108-24-241 64-308C261 93 356 83 452 82Z"/></clipPath>
+</defs>
+<ellipse cx="456" cy="604" rx="293" ry="31" fill="#035b63" opacity=".2" filter="url(#shadow)"/>
+<g filter="url(#soft)"><path d="M452 82c113-3 248 36 303 134 48 86 22 231-46 305-74 80-190 97-298 89-119-9-230-55-280-159-51-108-24-241 64-308C261 93 356 83 452 82Z" fill="url(#cyto)" stroke="#00a9a9" stroke-width="18"/><path d="M452 90c121-6 236 35 295 135" fill="none" stroke="#e3fff4" stroke-width="15" opacity=".75" stroke-linecap="round"/></g>
+<g clip-path="url(#cell)">
+ <path d="M125 387c55 74 130 94 191 89M660 190c62 57 74 129 65 192" fill="none" stroke="#eafff6" stroke-width="12" opacity=".35"/>
+ <!-- golgi -->
+ <g fill="none" stroke-linecap="round" transform="translate(270 265) rotate(-24)">
+  <path d="M-88 15c49-45 95-38 142-24" stroke="#058d80" stroke-width="20"/><path d="M-92 45c46-36 92-40 151-22" stroke="#0daa8c" stroke-width="19"/><path d="M-80 76c41-36 89-39 131-25" stroke="#16bb97" stroke-width="18"/><path d="M-58 103c37-24 72-26 110-17" stroke="#0d968a" stroke-width="16"/>
+ </g>
+ <!-- rough ER -->
+ <g transform="translate(470 366) rotate(-13)" fill="none" stroke-linecap="round">
+  <path d="M-104-124c-19-39-2-61 28-45 21 12 31 10 45-12 20-25 48-24 75-9 26 15 37 6 60-17" stroke="#e83782" stroke-width="21"/><path d="M-115-99c0-33 17-43 45-27 32 20 44-23 85-13 35 10 59 14 105-13" stroke="#f84790" stroke-width="18"/><path d="M-121-66c37-14 43-30 75-17 28 12 44-3 77-18 30-13 49 2 84-5" stroke="#fb77a9" stroke-width="17"/><path d="M-120 86c24-30 47-10 65-31 31-32 54-7 82-24 35-20 64-3 92-16" stroke="#ed468a" stroke-width="20"/><path d="M-112 117c29-24 41-7 66-14 32-9 52-20 80-13 32 7 52-19 83-10" stroke="#ff8bb8" stroke-width="19"/><path d="M-86 143c22-18 50-5 78-9 26-4 46-13 76-8 23 3 44-9 59-13" stroke="#ed4d94" stroke-width="17"/>
+ </g>
+ <!-- nucleus -->
+ <circle cx="462" cy="333" r="132" fill="url(#nucleus)" stroke="#d82d87" stroke-width="13"/><circle cx="458" cy="328" r="113" fill="none" stroke="#fff3fb" stroke-width="5" opacity=".65"/><circle cx="442" cy="329" r="57" fill="url(#nucleolus)" stroke="#7450d0" stroke-width="8"/><ellipse cx="428" cy="309" rx="22" ry="12" fill="#f4eaff" opacity=".4" transform="rotate(-25 428 309)"/>
+ <!-- mitochondria -->
+ <g transform="translate(637 238) rotate(30)"><ellipse rx="69" ry="36" fill="url(#mito)" stroke="#8c53d9" stroke-width="8"/><path d="M-45-12c18 18 5 25 30 25s12-29 38-22c21 6 10 19 31 18" fill="none" stroke="#ffe0ef" stroke-width="7" stroke-linecap="round"/></g>
+ <g transform="translate(652 444) rotate(-39)"><ellipse rx="66" ry="33" fill="url(#mito)" stroke="#8660df" stroke-width="8"/><path d="M-40-12c18 18 6 25 28 24 22-1 12-29 36-21 19 6 10 20 29 17" fill="none" stroke="#ffe3f1" stroke-width="7" stroke-linecap="round"/></g>
+ <!-- smooth ER -->
+ <g fill="none" stroke="url(#fold)" stroke-width="15" stroke-linecap="round"><path d="M240 458c-21-30-8-59 14-45 17 11 26 42 43 7 11-21 41-7 36 17-5 25 26 26 34 10"/><path d="M227 491c12-14 30-6 41 15 18 35 38-20 55-2 18 21 32 18 49 0"/></g>
+ <!-- vesicles -->
+ <g fill="#4f9fff" stroke="#d5f8ff" stroke-width="4"><circle cx="304" cy="183" r="25"/><circle cx="680" cy="353" r="19"/><circle cx="354" cy="531" r="14"/><circle cx="558" cy="525" r="18"/><circle cx="217" cy="388" r="11"/><circle cx="591" cy="177" r="10"/></g>
+ <g fill="#ff9b31" stroke="#ffe7a9" stroke-width="3"><circle cx="344" cy="160" r="7"/><circle cx="363" cy="190" r="8"/><circle cx="250" cy="345" r="8"/><circle cx="714" cy="387" r="8"/><circle cx="432" cy="527" r="7"/></g>
+ <g fill="#eb3d80"><circle cx="333" cy="398" r="6"/><circle cx="580" cy="480" r="5"/><circle cx="635" cy="326" r="7"/><circle cx="392" cy="176" r="6"/><circle cx="275" cy="414" r="5"/><circle cx="553" cy="209" r="6"/><circle cx="344" cy="484" r="7"/></g>
+</g>
+<path d="M453 82c120-3 241 38 296 139" fill="none" stroke="#cbfff3" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+<g fill="#ddfff9" opacity=".75"><circle cx="146" cy="185" r="6"/><circle cx="737" cy="129" r="9"/><circle cx="800" cy="438" r="5"/><circle cx="82" cy="418" r="4"/><path d="M747 508v21m-10-10h21" stroke="#dffff7" stroke-width="4"/></g>
+</svg>
