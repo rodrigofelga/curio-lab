@@ -1,64 +1,85 @@
-# CurioLab — Interactive Educational Hub
+<div align="center">
 
-Public, accessible, responsive educational landing page.
+# ✨ CurioLab
 
-## Deployment repository
+### Explore the extraordinary. Learn by discovery.
 
-- Repository: https://github.com/rodrigofelga/curio-lab
-- Live site after GitHub Pages is enabled: https://rodrigofelga.github.io/curio-lab/
-- Hosting: free GitHub Pages (`main` branch, `/(root)`)
+**An interactive educational hub for curious minds of all ages.**
 
-## Live educational experiences
+[🌐 Explore CurioLab](https://rodrigofelga.github.io/curio-lab/) · [🧬 Animal Cell](https://rodrigofelga.github.io/animal-cell-explorer/) · [🪐 Solar System & Galaxy](https://rodrigofelga.github.io/solar-system-galaxy/)
 
-| Experience | Live website | GitHub source |
-|---|---|---|
-| Animal Cell Explorer | https://rodrigofelga.github.io/animal-cell-explorer/ | https://github.com/rodrigofelga/animal-cell-explorer |
-| Solar System and Milky Way Explorer | https://rodrigofelga.github.io/solar-system-galaxy/ | https://github.com/rodrigofelga/solar-system-galaxy |
+</div>
 
-Physics, Earth & Nature, Chemistry, and Mathematics cards are visibly labeled **Coming soon**.
+---
 
-## Deploy from Windows PowerShell
+## 🌟 What is CurioLab?
 
-Clone the **existing, empty** repository first:
+CurioLab is a growing collection of interactive learning experiences that turns scientific ideas into places you can explore. Rather than simply reading about the natural world, visitors can investigate it visually: from the intricate structures inside a living cell to the planets of our Solar System and the wider Milky Way.
 
-```powershell
-cd "C:\Users\Admin\Documents\GitHub"
-git clone https://github.com/rodrigofelga/curio-lab.git
-cd "curio-lab"
-```
+Designed for **students, teachers, families, and lifelong learners**, CurioLab brings together approachable explanations, engaging visuals, and hands-on digital exploration in one welcoming destination.
 
-Extract the **contents** of the ZIP archive into this folder, so `index.html`, `styles.css`, `script.js`, `README.md`, `.nojekyll` and `assets/` are in its root, not nested under another directory.
+**Our idea is simple: curiosity should lead the way.** Pick a subject, open an experience, and discover something new at your own pace.
 
-```powershell
-git status
-git add .
-git commit -m "Launch CurioLab educational hub"
-git branch -M main
-git push -u origin main
-```
+## 🔭 Explore the learning experiences
 
-In GitHub, go to **Settings → Pages** and choose **Deploy from a branch**, branch **main**, folder **/(root)** and click **Save**. Site URL is `https://rodrigofelga.github.io/curio-lab/` once published.
+### 🧬 Biology — Animal Cell Explorer
 
-## Run locally
+**Discover the tiny structures that make life possible.**
 
-Open `index.html` in Chrome, Edge, or Firefox. No package manager or build step is required.
+Step inside a stylized animal cell and explore the organelles that help it function. The interactive model introduces key cell structures through visual exploration, making cellular biology more tangible and easier to understand.
 
-## Files
+**Explore:** the nucleus, cell structures, and the roles of organelles in living systems.
 
-- `index.html`: content and experience links
-- `styles.css`: responsive layout, colours and design
-- `script.js`: navigation, interactive filters and search
-- `assets/`: original SVG artwork and favicon
-- `.nojekyll`: serve static files directly in GitHub Pages
+**[Launch Animal Cell Explorer →](https://rodrigofelga.github.io/animal-cell-explorer/)**  
+[View project repository](https://github.com/rodrigofelga/animal-cell-explorer)
 
-## Maintain and update
+### 🪐 Astronomy — Solar System & Milky Way Explorer
 
-After editing files:
+**Journey from our planetary neighbourhood into the galaxy.**
 
-```powershell
-git add .
-git commit -m "Update CurioLab landing page"
-git push
-```
+Explore a visual representation of the Solar System and the Milky Way. This interactive experience invites visitors to build a sense of astronomical scale and discover how our cosmic surroundings fit together.
 
-Educational experiences are third-party pages relative to this site; the content behind those links can change independently. Site illustrations are stylized educational artwork. Project created by Rodrigo Felga de Castro.
+**Explore:** planets, the Solar System, and the broader galactic environment.
+
+**[Launch Solar System & Milky Way Explorer →](https://rodrigofelga.github.io/solar-system-galaxy/)**  
+[View project repository](https://github.com/rodrigofelga/solar-system-galaxy)
+
+## 🌱 A growing universe of subjects
+
+CurioLab is designed to expand beyond its first two experiences. The hub already introduces future learning areas, clearly marked **Coming soon**:
+
+| Subject | What learners will explore |
+|---|---|
+| ⚡ Physics | Motion, forces, energy, and the laws of the physical world |
+| 🌍 Earth & Nature | Our planet, ecosystems, and natural processes |
+| ⚗️ Chemistry | Matter, elements, molecules, and reactions |
+| 📐 Mathematics | Patterns, shapes, numbers, and problem-solving |
+
+These subjects are planned directions, **not yet available interactive lessons**.
+
+## 💡 Designed for discovery
+
+- **Interactive first:** featured subject cards lead directly to exploratory learning experiences.
+- **Find your interest:** subject filters and keyword search help visitors discover content.
+- **Accessible across devices:** responsive layouts adapt to phones, tablets, and desktop screens.
+- **Welcoming to everyone:** clear navigation and an approachable visual style support a broad audience.
+- **Built to grow:** new subject experiences can be added as CurioLab develops.
+
+## 🎓 Learning with curiosity and accuracy
+
+CurioLab aims to inspire questions and provide an intuitive starting point for scientific learning. Its visuals are **educational interpretations**, not precise scientific simulations. Sizes, distances, appearances, motion, and other details may be stylized or simplified to make concepts easier to explore. Use authoritative scientific and classroom resources when exact measurements or advanced technical accuracy are required.
+
+## 🚀 Explore CurioLab
+
+**[Open the Educational Hub →](https://rodrigofelga.github.io/curio-lab/)**
+
+Discover a subject that interests you, launch an interactive explorer, and keep learning.
+
+---
+
+<div align="center">
+
+**Created by Rodrigo Felga de Castro**  
+*Making learning more visual, interactive, and accessible.*
+
+</div>
