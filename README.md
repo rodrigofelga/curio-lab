@@ -6,7 +6,7 @@
 
 **An interactive educational hub for curious minds of all ages.**
 
-[🌐 Explore CurioLab](https://rodrigofelga.github.io/curio-lab/) · [🧬 Animal Cell](https://rodrigofelga.github.io/animal-cell-explorer/) · [🪐 Solar System & Galaxy](https://rodrigofelga.github.io/solar-system-galaxy/)
+[🌐 Explore CurioLab](https://rodrigofelga.github.io/curio-lab/) · [🧬 Animal Cell](https://rodrigofelga.github.io/animal-cell-explorer/) · [🪐 Solar System & Galaxy](https://rodrigofelga.github.io/solar-system-galaxy/) · [📐 Math Lab](https://rodrigofelga.github.io/curio-lab/math-lab/)
 
 </div>
 
@@ -44,16 +44,23 @@ Explore a visual representation of the Solar System and the Milky Way. This inte
 **[Launch Solar System & Milky Way Explorer →](https://rodrigofelga.github.io/solar-system-galaxy/)**  
 [View project repository](https://github.com/rodrigofelga/solar-system-galaxy)
 
+### 📐 Mathematics — Math Lab
+
+Discover mathematics by experimenting with ten bilingual geometry activities: area, perimeter, 3D volume, cross-sections and scaling. Adjust dimensions, orbit solids and replay visual formula derivations.
+
+**[Launch Math Lab →](https://rodrigofelga.github.io/curio-lab/math-lab/)**
+
+Hosted directly in this repository under math-lab/. See [Math Lab development notes](math-lab/README.md).
+
 ## 🌱 A growing universe of subjects
 
-CurioLab is designed to expand beyond its first two experiences. The hub already introduces future learning areas, clearly marked **Coming soon**:
+CurioLab is designed to expand beyond its first three experiences. The hub already introduces future learning areas, clearly marked **Coming soon**:
 
 | Subject | What learners will explore |
 |---|---|
 | ⚡ Physics | Motion, forces, energy, and the laws of the physical world |
 | 🌍 Earth & Nature | Our planet, ecosystems, and natural processes |
 | ⚗️ Chemistry | Matter, elements, molecules, and reactions |
-| 📐 Mathematics | Patterns, shapes, numbers, and problem-solving |
 
 These subjects are planned directions, **not yet available interactive lessons**.
 

@@ -31,3 +31,6 @@
 @media(max-width:380px){.container{width:calc(100% - 32px)}.hero h1{font-size:40px}.hero-visual{transform:scale(.69);margin-top:-12px;margin-bottom:-86px}.hero-bottom{gap:15px}.hero-bottom>span{max-width:53%}.filter-chip{font-size:11px;padding:9px 12px}.art-topline{left:15px;right:15px}.tag-light{font-size:8px}.feature-content{padding:23px 22px}.coming-grid{gap:10px}.upcoming-card{padding:19px 15px}.soon-label{position:static;margin:0 0 9px;font-size:8px}.upcoming-icon{margin-bottom:14px}.upcoming-card h4{font-size:17px}.mission-panel{padding-inline:23px}.hero-actions .btn{font-size:11px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+
+/* Math Lab joins the existing experience collection. */
+.art-math{background:#e8f0e5}.art-math>img{object-fit:contain;padding:40px 20px 5px}.subject-teal{background:#438a71}.coming-grid{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:560px){.coming-grid{grid-template-columns:1fr}}
