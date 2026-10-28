@@ -252,12 +252,18 @@ try {
       }
     },
   );
-  await check("reduced motion jumps demonstration to its result", async () => {
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await open("triangle");
-    await page.locator("#play").click();
-    assert.equal(await page.locator("#progress").inputValue(), "1");
-  });
+  await check(
+    "explicit Play animates with reduced motion enabled",
+    async () => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await open("triangle");
+      await page.locator("#play").click();
+      await page.waitForTimeout(200);
+      const progress = Number(await page.locator("#progress").inputValue());
+      assert.ok(progress > 0 && progress < 1);
+      await page.locator("#play").click();
+    },
+  );
   await check("keyboard controls and dark theme", async () => {
     await page.locator("#w").focus();
     await page.keyboard.press("ArrowRight");

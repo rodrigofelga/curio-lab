@@ -2,6 +2,7 @@ import { activities, subjects, ui, future } from "./data.js";
 import { measure, challengeFeedback } from "./math.js";
 import { render2D } from "./render2d.js";
 const app = document.querySelector("#app");
+const PLAYBACK_DURATION_MS = 5000;
 let lang = "en",
   subject = "area",
   active = null,
@@ -407,18 +408,21 @@ function reset() {
 function play() {
   stop();
   if (s.progress >= 1) s.progress = 0;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    s.progress = 1;
-    update();
-    return;
-  }
+  // Explicit Play always shows the demonstration, including with reduced motion.
+  // CSS still suppresses incidental transitions; Pause and seeking remain available.
   playing = true;
   document.querySelector("#play").textContent = "Ⅱ " + t().pause;
-  let last = performance.now();
+  const initialProgress = s.progress;
+  const startedAt = performance.now();
+  let last = startedAt;
+  update();
   function tick(now) {
     if (!playing) return;
     if (now - last >= 40) {
-      s.progress = Math.min(1, s.progress + (now - last) / 6500);
+      s.progress = Math.min(
+        1,
+        initialProgress + (now - startedAt) / PLAYBACK_DURATION_MS,
+      );
       last = now;
       update();
     }

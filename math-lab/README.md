@@ -17,6 +17,7 @@ Open http://127.0.0.1:8001/. Existing static files also work with any ordinary H
 
     npm.cmd test
     npm.cmd run test:browser
+    npm.cmd run test:playback
     npm.cmd run build
 
 Browser tests use locally installed Microsoft Edge. The static smoke test expects a packaged build served on port 8002 (node scripts/serve.mjs dist 8002). Build output is local dist/ only. Root-level GitHub Pages serves this checked-in math-lab/ directory directly.
@@ -30,3 +31,7 @@ Controls include pointer/touch orbit, drag resizing, keyboard-accessible sliders
 The original local prototype passed 11 unit tests, 19 browser checks and six packaged-build checks. Publication integration adds checks for the hub card, mathematics filter/search, real nested asset paths, bilingual return link and mobile layout. No changes are made to Animal Cell Explorer or Solar System & Milky Way Explorer.
 
 Mathematical reference: https://openstax.org/books/calculus-volume-1/pages/6-2-determining-volumes-by-slicing
+
+## Playback timing
+
+Every user-started triangle, circle, cylinder and cone demonstration takes five seconds from start to finish, including when reduced motion is enabled. Incidental CSS motion remains suppressed by that preference. Pause retains progress; resume takes the remaining fraction of five seconds, and Replay starts a new five-second run. Playback timing regression checks cover both motion preferences, seeking, pause/resume, replay, and an actual wall-clock run.
