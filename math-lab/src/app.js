@@ -1,6 +1,8 @@
-import { activities, subjects, ui, future } from "./data.js";
+import { activities, subjects, ui, future } from "./data.js?v=20261028-subjects";
 import { measure, challengeFeedback } from "./math.js";
 import { render2D } from "./render2d.js";
+import { learningDefaults, learningCard, mountLearning } from "./learning.js";
+let learningCleanup = null;
 const app = document.querySelector("#app");
 const PLAYBACK_DURATION_MS = 5000;
 let lang = "en",
@@ -25,24 +27,25 @@ const t = () => ui[lang],
     new Intl.NumberFormat(lang === "pt" ? "pt-BR" : "en", {
       maximumFractionDigits: 2,
     }).format(n);
-const defaults = (id) => ({
-  w: id === "scale" ? 2 : 4,
-  h: 3,
-  d: 3,
-  r: 3,
-  slice: 0,
-  sectors: 16,
-  grid: true,
-  labels: true,
-  wire: false,
-  transparent: true,
-  base: true,
-  layers: 3,
-  progress: ["triangle", "circle", "cone"].includes(id) ? 0 : 1,
-  angle: 40,
-  zoom: 1,
-  mode: "area",
-});
+const defaults = (id) =>
+  learningDefaults(id) ?? {
+    w: id === "scale" ? 2 : 4,
+    h: 3,
+    d: 3,
+    r: 3,
+    slice: 0,
+    sectors: 16,
+    grid: true,
+    labels: true,
+    wire: false,
+    transparent: true,
+    base: true,
+    layers: 3,
+    progress: ["triangle", "circle", "cone"].includes(id) ? 0 : 1,
+    angle: 40,
+    zoom: 1,
+    mode: "area",
+  };
 function save(k, v) {
   try {
     localStorage.setItem(k, v);
@@ -55,6 +58,8 @@ function stop() {
   if (b) b.textContent = t().play;
 }
 function dispose() {
+  learningCleanup?.();
+  learningCleanup = null;
   stop();
   epoch++;
   viewer?.dispose();
@@ -129,6 +134,7 @@ function landing() {
     .forEach((b) => (b.onclick = () => open(b.dataset.activity)));
 }
 function cardArt(id) {
+  if (learningDefaults(id)) return learningCard(id);
   const colors = {
     rectangle: "#7eaf96",
     triangle: "#d0a462",
@@ -174,6 +180,26 @@ function toggle(key, label) {
   return `<label class="toggle"><input type="checkbox" data-key="${key}" ${s[key] ? "checked" : ""}><span>${label}</span></label>`;
 }
 function activity() {
+  if (learningDefaults(active)) {
+    const definition = activities.find((a) => a.id === active);
+    learningCleanup = mountLearning(document.querySelector("main"), {
+      activity: definition,
+      lang,
+      state: s,
+      ui: t(),
+      index: activities.indexOf(definition),
+      total: activities.length,
+      onBack: () => {
+        active = null;
+        render();
+      },
+      onReset: () => {
+        s = defaults(active);
+        render();
+      },
+    });
+    return;
+  }
   const a = activities.find((a) => a.id === active),
     u = t(),
     is2D = a.subject === "area",
@@ -201,7 +227,7 @@ function activity() {
   if (active === "sphere")
     dims += range("slice", u.slice, -1, 1, s.slice, 0.05);
   document.querySelector("main").innerHTML =
-    `<div class="experiment-page"><button class="back" id="back">← ${u.back}</button><div class="experiment-heading"><div><p class="eyebrow">${u.experiment} ${String(activities.indexOf(a) + 1).padStart(2, "0")} / 10 · ${loc(a.tag)}</p><h1 id="activity-title" tabindex="-1">${loc(a.title)}</h1><p>${loc(a.description)}</p></div><span class="experiment-badge">${a.icon}</span></div><div class="discovery-steps" role="group" aria-label="${u.stepsLabel}">${u.step.map((name, i) => `<button data-step="${i}" class="${i === step ? "current" : ""}" aria-pressed="${i === step}"><span>0${i + 1}</span>${name}</button>`).join("")}</div><p class="step-prompt" id="step-prompt">${u.stepText[step]}</p><div class="workbench"><section class="visual-panel"><div class="canvas-top"><span><span class="tiny-dot"></span>${u.lab}</span><button class="text-button" id="reset-view">${is2D ? u.reset : u.resetCamera} ↺</button></div><div id="stage" class="stage ${is2D ? "two-d" : "three-d"}"><p>${u.loading}</p></div><p class="interaction-hint">${is2D ? (active === "circle" ? u.hintCircle : active === "triangle" ? u.hintTriangle : u.hint) : u.hint3}</p>${animated ? `<div class="playback"><button class="button primary" id="play">▶ ${u.play}</button><button class="icon-button" id="replay" aria-label="${u.replay}">↺</button><label class="sr-only" for="progress">${u.progress}</label><input id="progress" data-key="progress" type="range" min="0" max="1" step=".001" value="${s.progress}"></div>` : ""}<div id="measurements" class="measurements" aria-live="off"></div></section><aside class="control-panel"><p class="eyebrow">${u.controls}</p>${dims}<div class="toggles">${is2D && active !== "circle" ? toggle("grid", u.grid) : ""}${toggle("labels", u.dimensions)}${!is2D ? toggle("wire", u.wire) + toggle("transparent", u.transparent) : ""}${["cylinder", "cone", "sphere"].includes(active) ? toggle("base", active === "sphere" ? u.cylinderToggle : u.baseToggle) : ""}${["cube", "prism"].includes(active) ? toggle("grid", u.grid) : ""}</div>${!is2D ? `<div class="view-controls">${range("angle", u.rotate, 0, 360, s.angle)}${range("zoom", u.zoom, 0.5, 2, s.zoom, 0.05)}</div>` : ""}<button class="button reset-button" id="reset">↺ ${u.reset}</button><p class="unit-note">${u.units}</p></aside></div><div class="learning-grid"><section class="formula-panel"><p class="eyebrow">${u.formula}</p><div id="formula"></div><details open><summary>${u.why}</summary><p>${loc(a.explain)}</p></details><details><summary>${u.deeper}</summary><p>${loc(a.deep)}</p></details><p class="reference-link"><a href="https://openstax.org/books/calculus-volume-1/pages/6-2-determining-volumes-by-slicing" target="_blank" rel="noopener noreferrer">${u.sources} ↗</a></p></section><section class="challenge-panel"><span class="challenge-icon">✧</span><p class="eyebrow">${u.try}</p><h2>${loc(a.challenge)}</h2>${active === "challenge" ? `<label for="challenge-mode" class="sr-only">${u.try}</label><select id="challenge-mode"><option value="area">${u.sameArea}</option><option value="perimeter">${u.samePerimeter}</option><option value="target">${u.target}</option></select>` : ""}<p id="feedback" role="status"></p><div class="step-actions"><button class="text-button" id="prev">← ${u.previous}</button><button class="text-button" id="next">${u.next} →</button></div></section></div></div>`;
+    `<div class="experiment-page"><button class="back" id="back">← ${u.back}</button><div class="experiment-heading"><div><p class="eyebrow">${u.experiment} ${String(activities.indexOf(a) + 1).padStart(2, "0")} / ${activities.length} · ${loc(a.tag)}</p><h1 id="activity-title" tabindex="-1">${loc(a.title)}</h1><p>${loc(a.description)}</p></div><span class="experiment-badge">${a.icon}</span></div><div class="discovery-steps" role="group" aria-label="${u.stepsLabel}">${u.step.map((name, i) => `<button data-step="${i}" class="${i === step ? "current" : ""}" aria-pressed="${i === step}"><span>0${i + 1}</span>${name}</button>`).join("")}</div><p class="step-prompt" id="step-prompt">${u.stepText[step]}</p><div class="workbench"><section class="visual-panel"><div class="canvas-top"><span><span class="tiny-dot"></span>${u.lab}</span><button class="text-button" id="reset-view">${is2D ? u.reset : u.resetCamera} ↺</button></div><div id="stage" class="stage ${is2D ? "two-d" : "three-d"}"><p>${u.loading}</p></div><p class="interaction-hint">${is2D ? (active === "circle" ? u.hintCircle : active === "triangle" ? u.hintTriangle : u.hint) : u.hint3}</p>${animated ? `<div class="playback"><button class="button primary" id="play">▶ ${u.play}</button><button class="icon-button" id="replay" aria-label="${u.replay}">↺</button><label class="sr-only" for="progress">${u.progress}</label><input id="progress" data-key="progress" type="range" min="0" max="1" step=".001" value="${s.progress}"></div>` : ""}<div id="measurements" class="measurements" aria-live="off"></div></section><aside class="control-panel"><p class="eyebrow">${u.controls}</p>${dims}<div class="toggles">${is2D && active !== "circle" ? toggle("grid", u.grid) : ""}${toggle("labels", u.dimensions)}${!is2D ? toggle("wire", u.wire) + toggle("transparent", u.transparent) : ""}${["cylinder", "cone", "sphere"].includes(active) ? toggle("base", active === "sphere" ? u.cylinderToggle : u.baseToggle) : ""}${["cube", "prism"].includes(active) ? toggle("grid", u.grid) : ""}</div>${!is2D ? `<div class="view-controls">${range("angle", u.rotate, 0, 360, s.angle)}${range("zoom", u.zoom, 0.5, 2, s.zoom, 0.05)}</div>` : ""}<button class="button reset-button" id="reset">↺ ${u.reset}</button><p class="unit-note">${u.units}</p></aside></div><div class="learning-grid"><section class="formula-panel"><p class="eyebrow">${u.formula}</p><div id="formula"></div><details open><summary>${u.why}</summary><p>${loc(a.explain)}</p></details><details><summary>${u.deeper}</summary><p>${loc(a.deep)}</p></details><p class="reference-link"><a href="https://openstax.org/books/calculus-volume-1/pages/6-2-determining-volumes-by-slicing" target="_blank" rel="noopener noreferrer">${u.sources} ↗</a></p></section><section class="challenge-panel"><span class="challenge-icon">✧</span><p class="eyebrow">${u.try}</p><h2>${loc(a.challenge)}</h2>${active === "challenge" ? `<label for="challenge-mode" class="sr-only">${u.try}</label><select id="challenge-mode"><option value="area">${u.sameArea}</option><option value="perimeter">${u.samePerimeter}</option><option value="target">${u.target}</option></select>` : ""}<p id="feedback" role="status"></p><div class="step-actions"><button class="text-button" id="prev">← ${u.previous}</button><button class="text-button" id="next">${u.next} →</button></div></section></div></div>`;
   document.querySelector("#back").onclick = () => {
     active = null;
     render();

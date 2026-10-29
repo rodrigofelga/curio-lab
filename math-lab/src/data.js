@@ -1,3 +1,4 @@
+import { learningActivities } from "./learning-data.js";
 export const subjects = [
   [
     "area",
@@ -294,7 +295,7 @@ export const ui = {
     intro:
       "Stretch a shape. Turn a solid. Follow your curiosity.<br>Mathematics makes sense when you can see it move.",
     explore: "Find your next “aha!”",
-    count: "10 experiments · endless possibilities",
+    count: "18 experiments · endless possibilities",
     subjects: "Explore a subject",
     available: "Ready to explore",
     upcoming: "Coming next",
@@ -389,7 +390,7 @@ export const ui = {
     intro:
       "Estique uma forma. Gire um sólido. Siga sua curiosidade.<br>A matemática faz sentido quando você vê o movimento.",
     explore: "Encontre sua próxima descoberta",
-    count: "10 experimentos · infinitas possibilidades",
+    count: "18 experimentos · infinitas possibilidades",
     subjects: "Explore um assunto",
     available: "Pronto para explorar",
     upcoming: "Em breve",
@@ -476,19 +477,5 @@ export const ui = {
     stepsLabel: "Etapas da descoberta",
   },
 };
-export const future = {
-  fractions: [
-    ["Fraction builder", "Construtor de frações"],
-    ["Equivalent fractions", "Frações equivalentes"],
-    ["Ratios & proportions", "Razões e proporções"],
-  ],
-  algebra: [
-    ["Equation balance", "Equilíbrio de equações"],
-    ["Discover variables", "Descubra variáveis"],
-  ],
-  functions: [["Graph explorer", "Explorador de gráficos"]],
-  probability: [
-    ["Dice probability", "Probabilidade com dados"],
-    ["Probability spinner", "Roleta de probabilidades"],
-  ],
-};
+activities.push(...learningActivities);
+export const future = {};

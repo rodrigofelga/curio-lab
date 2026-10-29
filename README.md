@@ -46,7 +46,7 @@ Explore a visual representation of the Solar System and the Milky Way. This inte
 
 ### 📐 Mathematics — Math Lab
 
-Discover mathematics by experimenting with ten bilingual geometry activities: area, perimeter, 3D volume, cross-sections and scaling. Adjust dimensions, orbit solids and replay visual formula derivations.
+Discover mathematics by experimenting with 18 bilingual mathematics activities: geometry, fractions, ratios, algebra, functions, graphs and probability. Adjust dimensions, orbit solids and replay visual formula derivations.
 
 **[Launch Math Lab →](https://rodrigofelga.github.io/curio-lab/math-lab/)**
 

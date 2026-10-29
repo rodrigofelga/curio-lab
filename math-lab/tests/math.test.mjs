@@ -128,6 +128,6 @@ test("every implemented activity and interface key has both translations", () =>
         assert.ok(typeof text === "string" && text.length > 0);
     }
   assert.equal(subjects.length, 6);
-  assert.equal(activities.length, 10);
-  assert.equal(Object.keys(future).length, 4);
+  assert.equal(activities.length, 18);
+  assert.equal(Object.keys(future).length, 0);
 });

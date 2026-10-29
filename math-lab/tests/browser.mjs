@@ -216,13 +216,18 @@ try {
     },
   );
   await check(
-    "upcoming collections contain no playable activity buttons",
+    "all four new subjects contain playable activity cards",
     async () => {
       await page.locator("#back").click();
-      for (const id of ["fractions", "algebra", "functions", "probability"]) {
+      for (const [id, count] of [
+        ["fractions", 3],
+        ["algebra", 2],
+        ["functions", 1],
+        ["probability", 2],
+      ]) {
         await page.locator(`[data-subject="${id}"]`).click();
-        assert.equal(await page.locator("[data-activity]").count(), 0);
-        assert.ok((await page.locator(".upcoming").count()) > 0);
+        assert.equal(await page.locator("[data-activity]").count(), count);
+        assert.equal(await page.locator(".upcoming").count(), 0);
       }
     },
   );

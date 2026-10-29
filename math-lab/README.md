@@ -2,7 +2,7 @@
 
 Live subpage: https://rodrigofelga.github.io/curio-lab/math-lab/
 
-Ten geometry experiments in English and Brazilian Portuguese. Rectangle area/perimeter, triangle area, circle sector rearrangement, area/perimeter challenges, cube unit counts, prism layers, cylinder stacking, cone/cylinder comparison, sphere cross-sections, and surface/volume scaling. The four additional subject collections are explicitly upcoming.
+18 interactive mathematics experiences in English and Brazilian Portuguese. The ten geometry activities are joined by fraction building, equivalent fractions, ratio recipes, equation balance, a variable garden, linear/quadratic graph missions, dice experiments and a weighted probability spinner. All six subjects are available; none is an upcoming placeholder.
 
 ## Development
 
@@ -18,6 +18,7 @@ Open http://127.0.0.1:8001/. Existing static files also work with any ordinary H
     npm.cmd test
     npm.cmd run test:browser
     npm.cmd run test:playback
+    npm.cmd run test:learning
     npm.cmd run build
 
 Browser tests use locally installed Microsoft Edge. The static smoke test expects a packaged build served on port 8002 (node scripts/serve.mjs dist 8002). Build output is local dist/ only. Root-level GitHub Pages serves this checked-in math-lab/ directory directly.
@@ -35,3 +36,7 @@ Mathematical reference: https://openstax.org/books/calculus-volume-1/pages/6-2-d
 ## Playback timing
 
 Every user-started triangle, circle, cylinder and cone demonstration takes five seconds from start to finish, including when reduced motion is enabled. Incidental CSS motion remains suppressed by that preference. Pause retains progress; resume takes the remaining fraction of five seconds, and Replay starts a new five-second run. Playback timing regression checks cover both motion preferences, seeking, pause/resume, replay, and an actual wall-clock run.
+
+## New subject design and verification
+
+See [RESEARCH.md](RESEARCH.md) for official platform references, original activity designs, mathematical safeguards and scope limits. New code is separated into learning-data.js (bilingual activity content), learning-math.js (pure calculations and unbiased sampling), and learning.js (accessible controls, SVG/DOM models, missions and five-second probability playback). The geometry architecture is preserved. Tests add rational, algebraic, function and probability unit cases plus browser checks across all new activities, translations, resets and responsive sizes.

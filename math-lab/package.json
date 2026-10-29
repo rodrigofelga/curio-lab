@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "start": "node scripts/serve.mjs",
-    "test": "node --test tests/math.test.mjs",
+    "test": "node --test tests/math.test.mjs tests/learning.test.mjs",
     "test:browser": "node tests/browser.mjs",
     "build": "node scripts/build.mjs",
     "preview": "node scripts/serve.mjs dist",
-    "test:playback": "node tests/playback.mjs"
+    "test:playback": "node tests/playback.mjs",
+    "test:learning": "node tests/learning-browser.mjs"
   },
   "dependencies": {
     "three": "0.180.0"
