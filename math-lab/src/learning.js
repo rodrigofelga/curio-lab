@@ -9,7 +9,7 @@ import {
   graphFormula,
   graphModel,
   graphInputLabel,
-} from "./graph-view.js";
+} from "./graph-view.js?v=zero-scale";
 import { balanceModel, balanceNumber } from "./balance-view.js";
 import {
   learningActivities,

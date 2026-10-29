@@ -245,6 +245,11 @@ try {
         "Undefined",
       );
       assert.equal(await page.locator(".graph-asymptote").count(), 1);
+      await set("amplitude",0);
+      assert.equal(await page.locator(".graph-asymptote").count(),0);
+      assert.equal(await page.locator("#learn-metrics strong").last().innerText(),"Undefined");
+      await set("probe",1);
+      assert.equal(await page.locator("#learn-metrics strong").last().innerText(),"0");
     },
   );
   await check(

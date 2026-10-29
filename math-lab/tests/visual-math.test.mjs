@@ -177,3 +177,5 @@ test("fractional x values show correct partial units in every group", () => {
   assert.ok(exact.includes("13/3"));
   assert.equal((exact.match(/algebra-unit x-unit/g) || []).length, 12);
 });
+import {graphModel} from '../src/graph-view.js';
+test('zero vertical scale preserves holes without claiming vertical asymptotes',()=>{const s={...base,family:'reciprocal',amplitude:0};assert.equal(graphValue(s,0),null);assert.equal(graphValue(s,1),0);assert.ok(graphSegments(s,-8,8).length>1);assert.ok(!graphModel(s,learningUI.en,String).includes('graph-asymptote'));});

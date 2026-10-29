@@ -185,7 +185,8 @@ export function graphModel(s, u, f) {
           `<path class="function-curve" data-function="${settings.family}" d="${points.map(([x, y], i) => `${i ? "L" : "M"}${X(x)} ${Math.max(-10000, Math.min(10000, Y(y)))}`).join(" ")}" fill="none" stroke="${color}" stroke-width="${width}" ${dash ? `stroke-dasharray="${dash}"` : ""}/>`,
       )
       .join("");
-  const poles = graphPoles(s, -s.span, s.span),
+  // Zero vertical scale preserves domain holes, but their limits are finite.
+  const poles = s.amplitude === 0 ? [] : graphPoles(s, -s.span, s.span),
     asymptotes = poles
       .map(
         (x) =>
