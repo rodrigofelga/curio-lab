@@ -1,7 +1,7 @@
-import { activities, subjects, ui, future } from "./data.js?v=20261028-subjects";
+import { activities, subjects, ui, future } from "./data.js?v=20261028-visuals-trig";
 import { measure, challengeFeedback } from "./math.js";
 import { render2D } from "./render2d.js";
-import { learningDefaults, learningCard, mountLearning } from "./learning.js";
+import { learningDefaults, learningCard, mountLearning } from "./learning.js?v=20261028-visuals-trig";
 let learningCleanup = null;
 const app = document.querySelector("#app");
 const PLAYBACK_DURATION_MS = 5000;

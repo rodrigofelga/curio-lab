@@ -94,12 +94,12 @@ export const learningActivities = [
     "⚖",
     ["Equation balance", "Equilíbrio de equações"],
     [
-      "A mystery block, a balance, and a little detective work.",
-      "Um bloco misterioso, uma balança e um pouco de investigação.",
+      "Equal groups, extra ones, and an equation you can see.",
+      "Grupos iguais, unidades extras e uma equação que você pode ver.",
     ],
     [
-      "Each x block has the value you choose. The beam is level when both sides have equal totals. Subtracting the same amount from both sides keeps the same possible value of x.",
-      "Cada bloco x tem o valor que você escolhe. A balança fica nivelada quando os totais são iguais. Subtrair o mesmo valor dos dois lados mantém o mesmo valor possível de x.",
+      "Each purple frame is one equal group of x unit tiles. So 2x means x + x: when x = 4, two groups contain 4 + 4 = 8 tiles. The gold extra ones are added after multiplication. Compare all those tiles with the right-hand total.",
+      "Cada quadro roxo é um grupo de x peças unitárias. Assim, 2x significa x + x: se x = 4, dois grupos contêm 4 + 4 = 8 peças. As unidades extras douradas são somadas depois da multiplicação. Compare tudo com o total à direita.",
     ],
     [
       "For ax + b = c, subtract b from both sides, then divide both sides by a. Equality is preserved because each operation is applied to both sides. This is a symbolic balance, not a physical weight simulation.",
@@ -146,8 +146,8 @@ export const learningActivities = [
       "Cada ponto da curva relaciona uma entrada x à sua saída y. Mude os coeficientes e observe os pares mudarem juntos. Arraste ou toque no gráfico para mover a sonda pela curva.",
     ],
     [
-      "For a line, m is the change in y for each unit of x and b is the y-intercept. In ax² + mx + b, a controls curvature; a = 0 gives a line. The visible window may clip large outputs; zoom out to see more.",
-      "Na reta, m é a mudança em y por unidade de x, e b é o valor em x = 0. Em ax² + mx + b, a controla a curvatura; a = 0 produz uma reta. A janela pode cortar valores grandes; afaste a vista para ver mais.",
+      "Lines and quadratics use their coefficient controls. Other families use A·f(B(x − h)) + k: A scales vertically, B changes horizontal scale (and trig frequency), h shifts right, and k shifts up. Sine and cosine have period 2π/B (or 360°/B); tangent has half that period. Secant, cosecant and cotangent are reciprocal ratios, not inverse functions. Undefined inputs are gaps, never joined branches.",
+      "Retas e quadráticas usam seus coeficientes. As outras famílias usam A·f(B(x − h)) + k: A muda a escala vertical, B a escala horizontal (e a frequência trigonométrica), h desloca à direita e k para cima. Seno e cosseno têm período 2π/B (ou 360°/B); a tangente tem metade desse período. Secante, cossecante e cotangente são razões recíprocas, não funções inversas. Entradas indefinidas formam lacunas, nunca ligações entre ramos.",
     ],
     [
       "Make the curve pass through the beacon. Then move the probe to inspect it.",
@@ -273,7 +273,7 @@ export const learningUI = {
     different: "Different quantities",
     balance: "The totals are equal.",
     unbalanced: "The totals differ. Change x and compare.",
-    isolated: "Solved: one x is isolated and the balance is level.",
+    isolated: "Solved: one x is isolated and both totals match.",
     empty: "Keep at least one sector with a positive weight.",
     newDistribution: "Weights changed: counts reset for a fair comparison.",
     sample: "Results vary. More trials do not guarantee an exact match.",
@@ -366,7 +366,7 @@ export const learningUI = {
     different: "Quantidades diferentes",
     balance: "Os totais são iguais.",
     unbalanced: "Os totais são diferentes. Mude x e compare.",
-    isolated: "Resolvido: um x está isolado e a balança está nivelada.",
+    isolated: "Resolvido: um x está isolado e os totais são iguais.",
     empty: "Mantenha pelo menos um setor com peso positivo.",
     newDistribution:
       "Pesos alterados: contagens reiniciadas para uma comparação correta.",
@@ -401,7 +401,126 @@ export const references = {
     "https://phet.colorado.edu/en/simulations/equality-explorer",
   ],
   variables: ["Polypad", "https://polypad.amplify.com/p"],
-  graphs: ["Desmos", "https://www.desmos.com/calculator"],
+  graphs: [
+    "Desmos · Sine and Cosine",
+    "https://www.desmos.com/calculator/nqfu5lxaij",
+  ],
   dice: ["Polypad", "https://polypad.amplify.com/p"],
   spinner: ["Toy Theater", "https://toytheater.com/spinner/"],
 };
+
+Object.assign(learningUI.en, {
+  seeMultiplication: "SEE THE MULTIPLICATION",
+  equalGroups:
+    "Each purple frame is one x. Changing x changes every group together.",
+  extraOnes: "extra ones",
+  unitOnes: "unit tiles",
+  oneUnit: "one whole unit",
+  ofUnit: "of one unit",
+  partialUnits: "A partially filled tile is part of one unit.",
+  balanceTip:
+    "Trial values move in tenths. The exact-solution button can use fractions. Every full tile is 1.",
+  sine: "Sine · sin",
+  cosine: "Cosine · cos",
+  tangent: "Tangent · tan",
+  cotangent: "Cotangent · cot",
+  secant: "Secant · sec",
+  cosecant: "Cosecant · csc",
+  cubic: "Cubic",
+  absolute: "Absolute value",
+  sqrt: "Square root",
+  reciprocal: "Reciprocal · 1/x",
+  exponential: "Exponential",
+  logarithm: "Natural logarithm · ln",
+  angleUnit: "Angle units",
+  radians: "Radians",
+  degrees: "Degrees",
+  amplitude: "Vertical scale A",
+  frequency: "Horizontal factor B",
+  phase: "Horizontal shift h",
+  offset: "Vertical shift k",
+  expBase: "Exponential base b",
+  compareWaves: "Compare base sine and cosine",
+  shiftQuarter: "Shift sine left by a quarter turn",
+  probeQuarter: "Probe at a quarter turn",
+  xRange: "Horizontal range ±",
+  yRange: "Vertical range ±",
+  resetView: "Reset graph view",
+  graphAccessible: "Function graph with labeled axes, probe and target",
+  selectedCurve: "Selected function",
+  asymptote: "Vertical asymptote",
+  undefinedValue: "Undefined",
+  period: "Period",
+  quarterIdentity: "A quarter-turn shift lines sine up with cosine.",
+  graphTip:
+    "Choose a family. Trig inputs use the selected angle unit. Dashed red lines mark undefined inputs.",
+  domainAll: "Domain: all real inputs.",
+  domainSqrt:
+    "Domain: B(x − h) ≥ 0. There is no real square root for negative inputs.",
+  domainLog:
+    "Domain: B(x − h) > 0. The logarithm is undefined at zero and for negative inputs.",
+  domainReciprocal: "Domain: x ≠ h. Division by zero is undefined.",
+  domainCos:
+    "Undefined wherever cos(B(x − h)) = 0. Separate branches never connect across an asymptote.",
+  domainSin:
+    "Undefined wherever sin(B(x − h)) = 0. Separate branches never connect across an asymptote.",
+});
+Object.assign(learningUI.pt, {
+  seeMultiplication: "VEJA A MULTIPLICAÇÃO",
+  equalGroups:
+    "Cada quadro roxo é um x. Mudar x altera todos os grupos juntos.",
+  extraOnes: "unidades extras",
+  unitOnes: "peças unitárias",
+  oneUnit: "uma unidade inteira",
+  ofUnit: "de uma unidade",
+  partialUnits:
+    "Uma peça parcialmente preenchida representa parte de uma unidade.",
+  balanceTip:
+    "Os valores de teste variam em décimos. A solução exata pode usar frações. Cada peça inteira vale 1.",
+  sine: "Seno · sin",
+  cosine: "Cosseno · cos",
+  tangent: "Tangente · tan",
+  cotangent: "Cotangente · cot",
+  secant: "Secante · sec",
+  cosecant: "Cossecante · csc",
+  cubic: "Cúbica",
+  absolute: "Valor absoluto",
+  sqrt: "Raiz quadrada",
+  reciprocal: "Recíproca · 1/x",
+  exponential: "Exponencial",
+  logarithm: "Logaritmo natural · ln",
+  angleUnit: "Unidades dos ângulos",
+  radians: "Radianos",
+  degrees: "Graus",
+  amplitude: "Escala vertical A",
+  frequency: "Fator horizontal B",
+  phase: "Deslocamento horizontal h",
+  offset: "Deslocamento vertical k",
+  expBase: "Base exponencial b",
+  compareWaves: "Comparar seno e cosseno básicos",
+  shiftQuarter: "Deslocar o seno um quarto de volta à esquerda",
+  probeQuarter: "Sonda em um quarto de volta",
+  xRange: "Intervalo horizontal ±",
+  yRange: "Intervalo vertical ±",
+  resetView: "Restaurar vista do gráfico",
+  graphAccessible:
+    "Gráfico de função com eixos, sonda e ponto-alvo identificados",
+  selectedCurve: "Função selecionada",
+  asymptote: "Assíntota vertical",
+  undefinedValue: "Indefinido",
+  period: "Período",
+  quarterIdentity:
+    "Um quarto de volta de deslocamento alinha o seno ao cosseno.",
+  graphTip:
+    "Escolha uma família. Funções trigonométricas usam a unidade angular selecionada. Linhas vermelhas tracejadas indicam entradas indefinidas.",
+  domainAll: "Domínio: todas as entradas reais.",
+  domainSqrt:
+    "Domínio: B(x − h) ≥ 0. Não há raiz quadrada real de uma entrada negativa.",
+  domainLog:
+    "Domínio: B(x − h) > 0. O logaritmo é indefinido em zero e para entradas negativas.",
+  domainReciprocal: "Domínio: x ≠ h. A divisão por zero é indefinida.",
+  domainCos:
+    "Indefinido quando cos(B(x − h)) = 0. Os ramos nunca se conectam através de uma assíntota.",
+  domainSin:
+    "Indefinido quando sin(B(x − h)) = 0. Os ramos nunca se conectam através de uma assíntota.",
+});

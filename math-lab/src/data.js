@@ -1,4 +1,4 @@
-import { learningActivities } from "./learning-data.js";
+import { learningActivities } from "./learning-data.js?v=20261028-visuals-trig";
 export const subjects = [
   [
     "area",

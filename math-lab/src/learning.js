@@ -1,10 +1,26 @@
-import { learningActivities, learningUI, references } from "./learning-data.js";
+import {
+  graphValue as evaluateGraph,
+  isTrig,
+  graphTarget,
+} from "./graph-math.js";
+import {
+  graphControls,
+  syncGraphControls,
+  graphFormula,
+  graphModel,
+  graphInputLabel,
+} from "./graph-view.js";
+import { balanceModel, balanceNumber } from "./balance-view.js";
+import {
+  learningActivities,
+  learningUI,
+  references,
+} from "./learning-data.js?v=20261028-visuals-trig";
 import {
   fraction,
   equivalent,
   ratio,
   equation,
-  functionValue,
   probabilities,
   weightedIndex,
   randomInt,
@@ -39,6 +55,15 @@ export function learningDefaults(id) {
     intercept: 0,
     probe: 0,
     span: 8,
+    ySpan: 8,
+    amplitude: 1,
+    frequency: 1,
+    phase: 0,
+    offset: 0,
+    expBase: 2,
+    angleUnit: "radians",
+    compare: false,
+    xExact: null,
     weights: id === "dice" ? [1, 1, 1, 1, 1, 1] : [2, 1, 1],
     counts: id === "dice" ? [0, 0, 0, 0, 0, 0] : [0, 0, 0],
     last: null,
@@ -82,7 +107,7 @@ export function mountLearning(
     f = (n) =>
       new Intl.NumberFormat(en ? "en" : "pt-BR", {
         maximumFractionDigits: 2,
-      }).format(n),
+      }).format(Math.abs(n) < 0.005 ? 0 : n),
     percent = (n) => `${f(n * 100)}%`;
   let frame = 0,
     running = false,
@@ -137,22 +162,7 @@ export function mountLearning(
       range("x", u.rows, 0, 8, s.x) +
       range("m", u.perRow, 1, 6, s.m) +
       range("extra", u.extra, 0, 8, s.extra);
-  if (a.id === "graphs")
-    controls =
-      select(
-        "family",
-        u.family,
-        [
-          ["linear", u.linear],
-          ["quadratic", u.quadratic],
-        ],
-        s.family,
-      ) +
-      range("curve", u.curve, -2, 2, s.curve, 0.5) +
-      range("slope", u.slope, -4, 4, s.slope, 0.5) +
-      range("intercept", u.intercept, -6, 6, s.intercept, 0.5) +
-      range("probe", u.probe, -6, 6, s.probe, 0.5) +
-      range("span", u.zoom, 4, 16, s.span, 2);
+  if (a.id === "graphs") controls = graphControls(s, u, range, select, button);
   if (chance)
     controls =
       (a.id === "spinner"
@@ -173,7 +183,7 @@ export function mountLearning(
       ) +
       range("prediction", u.prediction, 0, 100, s.prediction) +
       `<div class="trial-buttons">${[10, 100, 1000].map((n) => button("run-" + n, `${u.run} ${f(n)}`)).join("")}</div>`;
-  host.innerHTML = `<div class="experiment-page learning-page"><button class="back" id="back">← ${common.back}</button><div class="experiment-heading"><div><p class="eyebrow">${common.experiment} ${String(index + 1).padStart(2, "0")} / ${total} · ${text(a.tag)}</p><h1 id="activity-title" tabindex="-1">${text(a.title)}</h1><p>${text(a.description)}</p></div><span class="experiment-badge">${a.icon}</span></div><div class="discovery-steps" role="group" aria-label="${common.stepsLabel}">${common.step.map((label, i) => `<button data-discovery="${i}" aria-pressed="${i === 0}" class="${i === 0 ? "current" : ""}"><span>0${i + 1}</span>${label}</button>`).join("")}</div><p class="step-prompt" id="step-prompt">${common.stepText[0]}</p><div class="workbench"><section class="visual-panel"><div class="canvas-top"><span><span class="tiny-dot"></span>${common.lab}</span><span id="discovery-count"></span></div><div id="learning-stage" class="learning-stage" aria-label="${text(a.title)}"></div><p class="interaction-hint">${a.id === "fractions" ? u.partsHint : u.hint}</p>${chance ? `<div class="playback">${button("learn-play", u.play)}${button("learn-replay", "↺", `aria-label="${u.replay}"`)}<label class="sr-only" for="learn-progress">${u.progress}</label><input id="learn-progress" type="range" min="0" max="1" step=".001" value="${s.progress}"></div>` : ""}<div id="learn-metrics" class="measurements"></div></section><aside class="control-panel"><p class="eyebrow">${common.controls}</p>${controls}${button("learn-reset", "↺ " + u.reset)}<p class="unit-note">${u.baseUnits}</p></aside></div><div class="learning-grid"><section class="formula-panel"><p class="eyebrow">${common.formula}</p><div id="learn-formula"></div><details open><summary>${common.why}</summary><p>${text(a.explain)}</p></details><details><summary>${common.deeper}</summary><p>${text(a.deep)}</p></details><p class="reference-link">${u.reference}: <a href="${references[a.id][1]}" target="_blank" rel="noopener noreferrer">${references[a.id][0]} ↗</a></p></section><section class="challenge-panel"><span class="challenge-icon">✧</span><p class="eyebrow">${u.mission}</p><h2>${text(a.challenge)}</h2><p id="mission-target" class="mission-target"></p><p id="learn-feedback" role="status"></p>${!chance ? button("new-mission", u.newMission) : ""}<p class="unit-note">${u.challengeHint}</p><div class="step-actions">${button("learn-prev", "← " + common.previous)}${button("learn-next", common.next + " →")}</div></section></div>${chance ? `<section class="results-panel"><h2>${u.table}</h2><p>${u.sample}</p><div id="trial-table"></div></section>` : ""}${["balance", "variables"].includes(a.id) ? '<section class="results-panel" id="extra-results"></section>' : ""}</div>`;
+  host.innerHTML = `<div class="experiment-page learning-page"><button class="back" id="back">← ${common.back}</button><div class="experiment-heading"><div><p class="eyebrow">${common.experiment} ${String(index + 1).padStart(2, "0")} / ${total} · ${text(a.tag)}</p><h1 id="activity-title" tabindex="-1">${text(a.title)}</h1><p>${text(a.description)}</p></div><span class="experiment-badge">${a.icon}</span></div><div class="discovery-steps" role="group" aria-label="${common.stepsLabel}">${common.step.map((label, i) => `<button data-discovery="${i}" aria-pressed="${i === 0}" class="${i === 0 ? "current" : ""}"><span>0${i + 1}</span>${label}</button>`).join("")}</div><p class="step-prompt" id="step-prompt">${common.stepText[0]}</p><div class="workbench"><section class="visual-panel"><div class="canvas-top"><span><span class="tiny-dot"></span>${common.lab}</span><span id="discovery-count"></span></div><div id="learning-stage" class="learning-stage" aria-label="${text(a.title)}"></div><p class="interaction-hint">${a.id === "fractions" ? u.partsHint : u.hint}</p>${chance ? `<div class="playback">${button("learn-play", u.play)}${button("learn-replay", "↺", `aria-label="${u.replay}"`)}<label class="sr-only" for="learn-progress">${u.progress}</label><input id="learn-progress" type="range" min="0" max="1" step=".001" value="${s.progress}"></div>` : ""}<div id="learn-metrics" class="measurements"></div></section><aside class="control-panel"><p class="eyebrow">${common.controls}</p>${controls}${button("learn-reset", "↺ " + u.reset)}<p class="unit-note">${a.id === "graphs" ? u.graphTip : a.id === "balance" ? u.balanceTip : u.baseUnits}</p></aside></div><div class="learning-grid"><section class="formula-panel"><p class="eyebrow">${common.formula}</p><div id="learn-formula"></div><details open><summary>${common.why}</summary><p>${text(a.explain)}</p></details><details><summary>${common.deeper}</summary><p>${text(a.deep)}</p></details><p class="reference-link">${u.reference}: <a href="${references[a.id][1]}" target="_blank" rel="noopener noreferrer">${references[a.id][0]} ↗</a></p></section><section class="challenge-panel"><span class="challenge-icon">✧</span><p class="eyebrow">${u.mission}</p><h2>${text(a.challenge)}</h2><p id="mission-target" class="mission-target"></p><p id="learn-feedback" role="status"></p>${!chance ? button("new-mission", u.newMission) : ""}<p class="unit-note">${u.challengeHint}</p><div class="step-actions">${button("learn-prev", "← " + common.previous)}${button("learn-next", common.next + " →")}</div></section></div>${chance ? `<section class="results-panel"><h2>${u.table}</h2><p>${u.sample}</p><div id="trial-table"></div></section>` : ""}${["balance", "variables"].includes(a.id) ? '<section class="results-panel" id="extra-results"></section>' : ""}</div>`;
   const q = (selector) => host.querySelector(selector),
     stage = q("#learning-stage");
   function metric(label, value) {
@@ -204,39 +214,10 @@ export function mountLearning(
     return `${s.coefficient === 1 ? "" : s.coefficient}x${s.constant ? " + " + s.constant : ""} = ${s.rhs}`;
   }
   function graphValue(x) {
-    return functionValue(
-      s.family === "quadratic" ? s.curve : 0,
-      s.slope,
-      s.intercept,
-      x,
-    );
+    return evaluateGraph(s, x);
   }
   function drawGraph() {
-    const x0 = 70,
-      y0 = 40,
-      w = 500,
-      h = 320,
-      cx = 320,
-      cy = 200,
-      X = (x) => cx + ((x / s.span) * w) / 2,
-      Y = (y) => cy - ((y / s.span) * h) / 2;
-    let grid = "";
-    const tick = s.span <= 8 ? 2 : 4;
-    for (let n = -s.span; n <= s.span; n += tick) {
-      grid += `<path d="M${X(n)} ${y0}V${y0 + h} M${x0} ${Y(n)}H${x0 + w}" stroke="#d4dfd3"/>`;
-      if (n !== 0)
-        grid +=
-          label(X(n), y0 + h + 22, f(n), "#627665", 12) +
-          label(x0 - 22, Y(n) + 4, f(n), "#627665", 12);
-    }
-    let path = "";
-    for (let i = 0; i <= 200; i++) {
-      const x = -s.span + (2 * s.span * i) / 200;
-      path += `${i ? "L" : "M"}${X(x)} ${Y(graphValue(x))} `;
-    }
-    const y = graphValue(s.probe);
-    let body = `<defs><clipPath id="graph-clip"><rect x="${x0}" y="${y0}" width="${w}" height="${h}"/></clipPath></defs>${grid}<path d="M${x0} ${cy}H${x0 + w}M${cx} ${y0}V${y0 + h}" stroke="#6d8370" stroke-width="2"/><g clip-path="url(#graph-clip)"><path d="${path}" fill="none" stroke="${colors[0]}" stroke-width="4"/><circle cx="${X(s.beacon[0])}" cy="${Y(s.beacon[1])}" r="12" fill="${colors[1]}" stroke="#986421" stroke-width="2"/><path d="M${X(s.beacon[0]) - 17} ${Y(s.beacon[1])}h34M${X(s.beacon[0])} ${Y(s.beacon[1]) - 17}v34" stroke="#986421"/><circle cx="${X(s.probe)}" cy="${Y(y)}" r="9" fill="${colors[2]}" stroke="white" stroke-width="3"/></g>${label(583, 205, "x")}${label(337, 28, "y")}${label(320, 419, Math.abs(y) > s.span ? u.outside : `(${f(s.probe)}, ${f(y)})`, "#31594c", Math.abs(y) > s.span ? 13 : 20)}`;
-    return svg(body);
+    return graphModel(s, u, f);
   }
   function die(index) {
     const positions = [
@@ -317,7 +298,8 @@ export function mountLearning(
       const out = q("#out-" + key);
       if (out) out.textContent = f(value);
     });
-    if (q("#curve")) q("#curve").disabled = s.family !== "quadratic";
+    if (a.id === "graphs") syncGraphControls(host, s, u, f);
+    if (a.id === "balance") q("#out-x").textContent = balanceNumber(s.x, s, f);
     if (q("#double")) q("#double").disabled = s.batches * 2 > 6;
     if (a.id === "balance") {
       q("#subtract").disabled = s.amount > s.constant || s.amount > s.rhs;
@@ -376,17 +358,8 @@ export function mountLearning(
       matched = s.a * s.targetRatio[1] === s.b * s.targetRatio[0];
     }
     if (a.id === "balance") {
-      const eq = equation(s.coefficient, s.constant, s.rhs, s.x),
-        angle = Math.max(-14, Math.min(14, (eq.right - eq.left) * 2));
-      const blocks = (n, x, y, unknown = false) =>
-        Array.from(
-          { length: n },
-          (_, i) =>
-            `<rect x="${x + (i % (unknown ? 6 : 8)) * (unknown ? 23 : 17)}" y="${y - Math.floor(i / (unknown ? 6 : 8)) * (unknown ? 25 : 18)}" width="${unknown ? 20 : 15}" height="${unknown ? 21 : 16}" rx="3" fill="${unknown ? colors[2] : colors[1]}"/>${label(x + (i % (unknown ? 6 : 8)) * (unknown ? 23 : 17) + (unknown ? 10 : 7.5), y - Math.floor(i / (unknown ? 6 : 8)) * (unknown ? 25 : 18) + 15, unknown ? "x" : "1", "white", 13)}`,
-        ).join("");
-      body = svg(
-        `<path d="M320 150L265 340H375Z" fill="#cddcc9"/><g transform="rotate(${angle} 320 150)"><path d="M130 150H510" stroke="#3f6c56" stroke-width="10" stroke-linecap="round"/><path d="M130 150L62 270H198ZM510 150L442 270H578Z" fill="none" stroke="#6d8b71" stroke-width="3"/><rect x="58" y="266" width="144" height="12" rx="6" fill="#3f6c56"/><rect x="438" y="266" width="144" height="12" rx="6" fill="#3f6c56"/>${blocks(s.coefficient, 65, 241, true)}${blocks(s.constant, 65, 211)}${blocks(s.rhs, 442, 241)}</g>${label(320, 402, eqText(), "#31594c", 26)}`,
-      );
+      const eq = equation(s.coefficient, s.constant, s.rhs, s.x);
+      body = balanceModel(s, u, f);
       metrics = metric(u.left, f(eq.left)) + metric(u.rightTotal, f(eq.right));
       matched = eq.equal && s.coefficient === 1 && s.constant === 0;
       formula = `${eqText()}<br><span>x = (c − b)/a${s.reveal || matched ? ` ≈ ${f(eq.solution)}` : ""}</span>`;
@@ -407,10 +380,14 @@ export function mountLearning(
     if (a.id === "graphs") {
       body = drawGraph();
       const y = graphValue(s.probe);
-      metrics = metric("x", f(s.probe)) + metric("y", f(y));
-      formula = `y = ${s.family === "quadratic" ? `${f(s.curve)}x² + ` : ""}${f(s.slope)}x + ${f(s.intercept)}<br><span>y(${f(s.probe)}) ≈ ${f(y)}</span>`;
-      target = `${u.beacon}: (${s.beacon.map(f).join(", ")})`;
-      matched = Math.abs(graphValue(s.beacon[0]) - s.beacon[1]) < 1e-9;
+      metrics =
+        metric("x", graphInputLabel(s, f)) +
+        metric("y", y === null ? u.undefinedValue : f(y));
+      formula = `${graphFormula(s, f)}<br><span>y(${graphInputLabel(s, f)}) ${y === null ? u.undefinedValue : "≈ " + f(y)}</span>`;
+      target = `${u.beacon}: (${graphInputLabel(s, f, s.beacon[0])}, ${f(s.beacon[1])})`;
+      const targetValue = graphValue(s.beacon[0]);
+      matched =
+        targetValue !== null && Math.abs(targetValue - s.beacon[1]) < 1e-9;
     }
     if (chance) {
       const probs = probabilities(s.weights);
@@ -545,6 +522,7 @@ export function mountLearning(
     (input) =>
       (input.oninput = () => {
         const key = input.dataset.learn;
+        const previousUnit = s.angleUnit;
         s.notice = null;
         if (key.startsWith("weight-")) {
           stop();
@@ -564,9 +542,48 @@ export function mountLearning(
             s.notice = "newDistribution";
           }
         } else {
-          s[key] = ["shape", "family"].includes(key)
+          s[key] = ["shape", "family", "angleUnit"].includes(key)
             ? input.value
             : Number(input.value);
+          if (a.id === "balance" && key === "x") {
+            s.x = Math.round(s.x * 10) / 10;
+            s.xExact = null;
+            s.reveal = false;
+          }
+          if (a.id === "graphs") {
+            if (key === "family") {
+              s.amplitude = 1;
+              s.frequency = 1;
+              s.phase = 0;
+              s.offset = 0;
+              s.compare = isTrig(s);
+              s.span = isTrig(s)
+                ? s.angleUnit === "degrees"
+                  ? 360
+                  : 2 * Math.PI
+                : 8;
+              s.ySpan = isTrig(s) ? 3 : 8;
+              s.probe = Math.max(
+                -s.span,
+                Math.min(
+                  s.span,
+                  isTrig(s) ? s.probe : Math.round(s.probe * 2) / 2,
+                ),
+              );
+              s.beacon = graphTarget(s, s.mission);
+              s.claimed = false;
+            }
+            if (key === "angleUnit" && previousUnit !== s.angleUnit) {
+              const factor =
+                s.angleUnit === "degrees" ? 180 / Math.PI : Math.PI / 180;
+              s.phase *= factor;
+              s.span *= factor;
+              s.probe *= factor;
+              s.beacon[0] *= factor;
+            }
+            if (key === "span")
+              s.probe = Math.max(-s.span, Math.min(s.span, s.probe));
+          }
           if (["n", "d", "addend"].includes(key)) {
             s.n = Math.min(s.n, s.d);
             s.addend = Math.min(s.addend, s.d);
@@ -594,6 +611,7 @@ export function mountLearning(
     draw();
   });
   function op(fn) {
+    if (!s.history.length) s.history.push(eqText());
     fn();
     s.history.push(eqText());
     if (s.history.length > 15) s.history.shift();
@@ -620,6 +638,7 @@ export function mountLearning(
   q("#exact")?.addEventListener("click", () => {
     s.reveal = true;
     s.x = (s.rhs - s.constant) / s.coefficient;
+    s.xExact = [s.rhs - s.constant, s.coefficient];
     draw();
   });
   for (const [id, key, delta] of [
@@ -692,6 +711,7 @@ export function mountLearning(
     }
     if (a.id === "balance") {
       s.reveal = false;
+      s.xExact = null;
       s.coefficient = 1 + (n % 3);
       s.constant = 2 + (n % 5);
       s.rhs = s.coefficient * (2 + (n % 6)) + s.constant;
@@ -705,12 +725,7 @@ export function mountLearning(
       s.x = 0;
     }
     if (a.id === "graphs") {
-      s.beacon = [
-        [2, 4],
-        [-2, 2],
-        [3, 3],
-        [1, -2],
-      ][n % 4];
+      s.beacon = graphTarget(s, n);
       s.slope = 0;
       s.intercept = 0;
       s.curve = 1;
@@ -742,12 +757,18 @@ export function mountLearning(
       p.y = e.clientY;
       const point = p.matrixTransform(node.getScreenCTM().inverse());
       s.probe = Math.max(
-        -6,
-        Math.min(6, Math.round(((point.x - 320) / 250) * s.span * 2) / 2),
+        -s.span,
+        Math.min(
+          s.span,
+          isTrig(s)
+            ? ((point.x - 320) / 250) * s.span
+            : Math.round(((point.x - 320) / 250) * s.span * 2) / 2,
+        ),
       );
       draw();
     };
     stage.onpointerdown = (e) => {
+      if (!e.target.closest("svg")) return;
       stage.setPointerCapture(e.pointerId);
       stage._dragging = true;
       move(e);
@@ -756,6 +777,30 @@ export function mountLearning(
       if (stage._dragging) move(e);
     };
     stage.onpointerup = stage.onpointercancel = () => (stage._dragging = false);
+  }
+  if (a.id === "graphs") {
+    q("#compare-waves").oninput = (e) => {
+      s.compare = e.target.checked;
+      draw();
+    };
+    q("#shift-quarter").onclick = () => {
+      s.amplitude = 1;
+      s.frequency = 1;
+      s.offset = 0;
+      s.phase = -(s.angleUnit === "degrees" ? 90 : Math.PI / 2);
+      s.compare = true;
+      draw();
+    };
+    q("#probe-quarter").onclick = () => {
+      s.probe = s.angleUnit === "degrees" ? 90 : Math.PI / 2;
+      draw();
+    };
+    q("#reset-graph-view").onclick = () => {
+      s.span = isTrig(s) ? (s.angleUnit === "degrees" ? 360 : 2 * Math.PI) : 8;
+      s.ySpan = isTrig(s) ? 3 : 8;
+      s.probe = 0;
+      draw();
+    };
   }
   discovery(0);
   draw();

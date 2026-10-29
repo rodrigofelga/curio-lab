@@ -2,7 +2,7 @@
 
 Live subpage: https://rodrigofelga.github.io/curio-lab/math-lab/
 
-18 interactive mathematics experiences in English and Brazilian Portuguese. The ten geometry activities are joined by fraction building, equivalent fractions, ratio recipes, equation balance, a variable garden, linear/quadratic graph missions, dice experiments and a weighted probability spinner. All six subjects are available; none is an upcoming placeholder.
+18 interactive mathematics experiences in English and Brazilian Portuguese. The ten geometry activities are joined by fraction building, equivalent fractions, ratio recipes, equation balance, a variable garden, 14-family function graph missions, dice experiments and a weighted probability spinner. All six subjects are available; none is an upcoming placeholder.
 
 ## Development
 
@@ -19,6 +19,7 @@ Open http://127.0.0.1:8001/. Existing static files also work with any ordinary H
     npm.cmd run test:browser
     npm.cmd run test:playback
     npm.cmd run test:learning
+    npm.cmd run test:visual
     npm.cmd run build
 
 Browser tests use locally installed Microsoft Edge. The static smoke test expects a packaged build served on port 8002 (node scripts/serve.mjs dist 8002). Build output is local dist/ only. Root-level GitHub Pages serves this checked-in math-lab/ directory directly.
@@ -40,3 +41,7 @@ Every user-started triangle, circle, cylinder and cone demonstration takes five 
 ## New subject design and verification
 
 See [RESEARCH.md](RESEARCH.md) for official platform references, original activity designs, mathematical safeguards and scope limits. New code is separated into learning-data.js (bilingual activity content), learning-math.js (pure calculations and unbiased sampling), and learning.js (accessible controls, SVG/DOM models, missions and five-second probability playback). The geometry architecture is preserved. Tests add rational, algebraic, function and probability unit cases plus browser checks across all new activities, translations, resets and responsive sizes.
+
+## Clearer algebra and extended graphs
+
+Algebra now uses repeated equal groups of visible unit tiles: 2x is shown as x+x, and the added constant stays separate. Decimal and fractional trials have proportional partial tiles. Graphs support 14 function families, including all six basic trig functions, plus radians/degrees, transformations, sin/cos overlays, a quarter-turn shift lesson, domain checks and separated asymptote branches. See RESEARCH.md for the supplied Desmos example and OpenStax validation references. New pure tests cover function values, domains, poles, branch separation, periods and tile counts; browser tests check models, transformations and bilingual mobile layouts.
